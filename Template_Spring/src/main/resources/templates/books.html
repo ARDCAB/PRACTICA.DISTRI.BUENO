@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Room</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.typekit.net/fvp4ryh.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" style="text-decoration: none;">
+            <h1>
+                <span class="title-main">THE BOOK BARTER</span>
+                <br>
+                <span class="title-sub">CONCEPT <span class="title-sub-italic">of Deal</span></span>
+                <br>
+                <span class="title-sub">MADRID</span>
+            </h1>
+        </a>
+    </header>
+
+
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for books">
+    </div>
+
+    
+    <div class="categories">
+        <img src="images/all.png" alt="All" class="category-box" onclick="window.location.href='allBooks.html'">
+        <img src="images/contemporary.png" alt="Contemporary" class="category-box">
+        <img src="images/fantasy.png" alt="Fantasy" class="category-box">
+        <img src="images/romance.png" alt="Romance" class="category-box" onclick="window.location.href='romance.html'">
+        <img src="images/psycho.png" alt="Psychology" class="category-box">
+        <img src="images/history.png" alt="History" class="category-box">
+        <img src="images/education.png" alt="Education" class="category-box">
+    </div>
+
+   
+    <div class="popular-section">
+        <h2>Popular</h2>
+        <div class="book-list">
+            <img src="images/book1.png" alt="Book 1" class="book-cover">
+            <img src="images/book2.png" alt="Book 2" class="book-cover">
+            <img src="images/book3.png" alt="Book 3" class="book-cover">
+            <img src="images/book4.png" alt="Book 4" class="book-cover">
+            <img src="images/book5.png" alt="Book 5" class="book-cover">
+        </div>
+    </div>
+
+
+    
+    
+    <div id="all-books-container" style="display: none; text-align: center;">
+        <img src="images/allBooks.png" alt="All Books" class="all-books-image">
+    </div>
+
+    <script>
+        function showAllBooks() {
+            document.getElementById('all-books-container').style.display = 'block';
+        }
+    </script>
+
+
+
+    <div class="book-container">
+        <div class="book-text">
+            <h2>Books are the quietest and most constant of friends; <br>they are the most accessible and wisest of counselors, <br> and the most patient of teachers.</h2>
+            <p>- Charles W. Eliot</p>
+        </div>
+        <img src="images/book6.png" alt="Book 6" class="book-image">
+    </div>
+
+
+</body>
+</html>
