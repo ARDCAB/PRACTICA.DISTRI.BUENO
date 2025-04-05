@@ -1,47 +1,53 @@
 package es.codeurjc.service;
 
-import es.dws.PracticaSD.model.User;
-import es.dws.PracticaSD.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import es.codeurjc.model.User;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+import java.util.*;
 @Service
 public class UserService {
+    private Map<Integer, User> users = new HashMap<>();
+    private int currentId = 1;
 
-    private final UserRepository userRepository;
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public List<User> getAll() {
+        return new ArrayList<>(users.values());
     }
 
-    public List<User> getAllUsuarios() {
-        return userRepository.findAll();
+    public User getById(int id) {
+        return users.get(id);
     }
 
-    public User createUsuario(User user) {
-        return userRepository.save(user);
+    public User create(User user) {
+        user.setId(currentId++);
+        users.put(user.getId(), user);
+        return user;
     }
 
-    public User updateUsuario(Long id, User userDetails) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user != null) {
-            user.setNombre(userDetails.getNombre());
-            user.setEdad(userDetails.getEdad());
-            user.setPassword(userDetails.getPassword());
-            return userRepository.save(user);
+    public User update(int id, User user) {
+        if (users.containsKey(id)) {
+            user.setId(id);
+            users.put(id, user);
+            return user;
         }
         return null;
     }
 
-    public void deleteUsuario(Long id) {
-        userRepository.deleteById(id);
+    public User patch(int id, Map<String, Object> updates) {
+        User user = users.get(id);
+        if (user != null) {
+            if (updates.containsKey("nombre")) {
+                user.setNombre((String) updates.get("nombre"));
+            }
+            if (updates.containsKey("email")) {
+                user.setEmail((String) updates.get("email"));
+            }
+        }
+        return user;
     }
 
-    public User getUsuarioById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public boolean delete(int id) {
+        return users.remove(id) != null;
     }
 }
 

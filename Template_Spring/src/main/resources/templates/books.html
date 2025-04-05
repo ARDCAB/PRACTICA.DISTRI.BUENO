@@ -1,77 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Room</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://use.typekit.net/fvp4ryh.css">
+    <style>
+        /* Estilos para el formulario */
+        .form-container {
+            margin: 30px auto;
+            width: 50%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilo para los libros */
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .book-card {
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .book-card h4 {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .book-card p {
+            margin: 5px 0;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" style="text-decoration: none;">
-            <h1>
-                <span class="title-main">THE BOOK BARTER</span>
-                <br>
-                <span class="title-sub">CONCEPT <span class="title-sub-italic">of Deal</span></span>
-                <br>
-                <span class="title-sub">MADRID</span>
-            </h1>
-        </a>
-    </header>
+<header>
+    <a href="index.html" style="text-decoration: none;">
+        <h1>
+            <span class="title-main">THE BOOK BARTER</span>
+            <br>
+            <span class="title-sub">CONCEPT <span class="title-sub-italic">of Deal</span></span>
+            <br>
+            <span class="title-sub">MADRID</span>
+        </h1>
+    </a>
+</header>
 
+<div class="search-container">
+    <input type="text" class="search-bar" id="searchInput" placeholder="Search for books" onkeyup="filterBooks()">
+</div>
 
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search for books">
-    </div>
+<div class="categories">
+    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='allBooks.html'">
+    <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
+    <img src="/assets/fantasy.png" alt="Fantasy" class="category-box">
+    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='romance.html'">
+    <img src="/assets/psycho.png" alt="Psychology" class="category-box">
+    <img src="/assets/history.png" alt="History" class="category-box">
+    <img src="/assets/education.png" alt="Education" class="category-box">
+</div>
 
-    
-    <div class="categories">
-        <img src="images/all.png" alt="All" class="category-box" onclick="window.location.href='allBooks.html'">
-        <img src="images/contemporary.png" alt="Contemporary" class="category-box">
-        <img src="images/fantasy.png" alt="Fantasy" class="category-box">
-        <img src="images/romance.png" alt="Romance" class="category-box" onclick="window.location.href='romance.html'">
-        <img src="images/psycho.png" alt="Psychology" class="category-box">
-        <img src="images/history.png" alt="History" class="category-box">
-        <img src="images/education.png" alt="Education" class="category-box">
-    </div>
-
-   
-    <div class="popular-section">
-        <h2>Popular</h2>
-        <div class="book-list">
-            <img src="images/book1.png" alt="Book 1" class="book-cover">
-            <img src="images/book2.png" alt="Book 2" class="book-cover">
-            <img src="images/book3.png" alt="Book 3" class="book-cover">
-            <img src="images/book4.png" alt="Book 4" class="book-cover">
-            <img src="images/book5.png" alt="Book 5" class="book-cover">
+<div class="popular-section">
+    <h2>Popular</h2>
+    <div class="book-list" id="booksList">
+        <!-- Iterar sobre la lista de libros -->
+        <div th:each="book : ${books}" class="book-card">
+            <h4 th:text="${book.title}">Book Title</h4>  <!-- Muestra el título del libro -->
+            <p th:text="${book.author}">Author Name</p>  <!-- Muestra el autor del libro -->
         </div>
     </div>
+</div>
 
+<!-- Formulario para agregar un libro -->
+<div class="form-container">
+    <h3>Add a New Book</h3>
+    <form action="/books/add" method="POST">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br><br>
 
-    
-    
-    <div id="all-books-container" style="display: none; text-align: center;">
-        <img src="images/allBooks.png" alt="All Books" class="all-books-image">
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required><br><br>
+
+        <button type="submit">Add Book</button>
+    </form>
+</div>
+
+<!-- Botón para ver los libros añadidos -->
+<div class="form-container">
+    <a href="/books/list">
+        <button type="button">View Added Books</button>
+    </a>
+</div>
+
+<div id="all-books-container" style="display: none; text-align: center;">
+    <img src="/assets/allBooks.png" alt="All Books" class="all-books-image">
+</div>
+
+<div class="book-container">
+    <div class="book-text">
+        <h2>Books are the quietest and most constant of friends; <br>they are the most accessible and wisest of counselors, <br> and the most patient of teachers.</h2>
+        <p>- Charles W. Eliot</p>
     </div>
+    <img src="/assets/book6.png" alt="Book 6" class="book-image">
+</div>
 
-    <script>
-        function showAllBooks() {
-            document.getElementById('all-books-container').style.display = 'block';
-        }
-    </script>
-
-
-
-    <div class="book-container">
-        <div class="book-text">
-            <h2>Books are the quietest and most constant of friends; <br>they are the most accessible and wisest of counselors, <br> and the most patient of teachers.</h2>
-            <p>- Charles W. Eliot</p>
-        </div>
-        <img src="images/book6.png" alt="Book 6" class="book-image">
-    </div>
-
+<script src="/js/books.js"></script> <!-- Aquí se carga el archivo JS -->
+<script>
+    // Aquí puedes agregar la lógica de JavaScript para cargar los libros y hacer búsquedas
+    function filterBooks() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const bookCards = document.querySelectorAll('.book-card');
+        bookCards.forEach(card => {
+            const title = card.querySelector('h4').textContent.toLowerCase();
+            const author = card.querySelector('p').textContent.toLowerCase();
+            if (title.includes(query) || author.includes(query)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
+

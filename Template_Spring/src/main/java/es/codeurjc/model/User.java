@@ -1,29 +1,24 @@
 package es.codeurjc.model;
 
-//import jakarta.persistence.*;
-
-//@Entity
-//@Table(name = "users")
 public class User {
-
- //@Id
- //@GeneratedValue(strategy = GenerationType.IDENTITY)
- private Long id;
-
+ private int id;
  private String nombre;
- private int edad;
- private String password;
+ private String email;
 
  public User() {
-  // Constructor sin argumentos
  }
 
- // Getters y setters
- public Long getId() {
+ public User(int id, String nombre, String email) {
+  this.id = id;
+  this.nombre = nombre;
+  this.email = email;
+ }
+
+ public int getId() {
   return id;
  }
 
- public void setId(Long id) {
+ public void setId(int id) {
   this.id = id;
  }
 
@@ -35,19 +30,11 @@ public class User {
   this.nombre = nombre;
  }
 
- public int getEdad() {
-  return edad;
+ public String getEmail() {
+  return email;
  }
 
- public void setEdad(int edad) {
-  this.edad = edad;
- }
-
- public String getPassword() {
-  return password;
- }
-
- public void setPassword(String password) {
-  this.password = password;
+ public void setEmail(String email) {
+  this.email = email;
  }
 }

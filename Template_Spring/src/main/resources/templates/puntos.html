@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
+  <title>Puntos de Recogida - The Book Barter</title>
+  <link href="/css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+  <h1>Puntos de Recogida Management</h1>
+</header>
+
+<div class="form-container">
+  <h2>Add New Punto de Recogida</h2>
+  <form id="puntoForm" onsubmit="createPuntoRecogida(event)">
+    <input type="text" id="location" placeholder="Enter location" required>
+    <input type="text" id="contact" placeholder="Enter contact details" required>
+    <button type="submit">Add Punto</button>
+  </form>
+</div>
+
+<hr>
+
+<div id="puntosList">
+  <h2>Puntos de Recogida List</h2>
+  <ul id="puntosUl"></ul>
+</div>
+
+<script src="/js/puntos.js"></script>
+</body>
+</html>
