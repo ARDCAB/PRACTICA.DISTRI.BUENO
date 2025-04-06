@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -110,11 +109,18 @@
 <div class="popular-section">
     <h2>Popular</h2>
     <div class="book-list" id="booksList">
-        <!-- Iterar sobre la lista de libros -->
-        <div th:each="book : ${books}" class="book-card">
-            <h4 th:text="${book.title}">Book Title</h4>  <!-- Muestra el título del libro -->
-            <p th:text="${book.author}">Author Name</p>  <!-- Muestra el autor del libro -->
+        <!-- Iterar sobre la lista de libros con Mustache -->
+        {{#books}}
+        <div class="book-card">
+            <h4>{{titulo}}</h4>  <!-- Muestra el título del libro -->
+            <p>{{autor}}</p>  <!-- Muestra el autor del libro -->
+
+            <!-- Formulario de eliminación -->
+            <form action="/books/delete/{{id}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                <button type="submit">Delete</button>
+            </form>
         </div>
+        {{/books}}
     </div>
 </div>
 
@@ -171,4 +177,3 @@
 
 </body>
 </html>
-

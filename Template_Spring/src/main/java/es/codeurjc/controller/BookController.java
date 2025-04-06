@@ -18,58 +18,84 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    // Método para obtener todos los libros, usado para la API REST
-    @GetMapping
+    // REST API - Get all books (for REST calls)
+    @GetMapping("/api")
+    @ResponseBody
     public List<Book> getAll() {
         return bookService.getAll();
     }
 
-    // Método para obtener un libro por ID, usado para la API REST
-    @GetMapping("/{id}")
-    public Book getById(@PathVariable int id) {
+    // REST API - Get a book by ID (for REST calls)
+    @GetMapping("/api/{id}")
+    @ResponseBody
+    public Book getByIdApi(@PathVariable int id) {
         return bookService.getById(id);
     }
 
-    @PostMapping
-    public Book create(@RequestParam Book book) {
+    // REST API - Create a book (for REST calls)
+    @PostMapping("/api")
+    @ResponseBody
+    public Book createApi(@RequestBody Book book) {
         return bookService.create(book);
     }
 
-    @PutMapping("/{id}")
-    public Book update(@PathVariable int id, @RequestBody Book book) {
+    // REST API - Update a book (for REST calls)
+    @PutMapping("/api/{id}")
+    @ResponseBody
+    public Book updateApi(@PathVariable int id, @RequestBody Book book) {
         return bookService.update(id, book);
     }
 
-    @PatchMapping("/{id}")
-    public Book patch(@PathVariable int id, @RequestBody Map<String, Object> updates) {
+    // REST API - Partially update a book (for REST calls)
+    @PatchMapping("/api/{id}")
+    @ResponseBody
+    public Book patchApi(@PathVariable int id, @RequestBody Map<String, Object> updates) {
         return bookService.patch(id, updates);
     }
 
-    // Método para eliminar un libro, usado para la API REST
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
+    // REST API - Delete a book (for REST calls)
+    @DeleteMapping("/api/{id}")
+    @ResponseBody
+    public void deleteApi(@PathVariable int id) {
         bookService.delete(id);
     }
 
-    // Mostrar la lista de libros en la vista
-    @GetMapping("/list")
+    // Show the books page when accessing /books
+    @GetMapping("")
     public String showBooksPage(Model model) {
-        List<Book> books = bookService.getAllBooks();
-        return "books";
+        List<Book> books = bookService.getAllBooks();  // Get the list of books
+        model.addAttribute("books", books);  // Add the list of books to the model
+        return "books";  // This is the Thymeleaf template "books.html"
     }
 
-    // Manejar la creación de nuevos libros desde un formulario
+    // Show the list of books in the /books/list view
+    @GetMapping("/list")
+    public String showBooksListPage(Model model) {
+        List<Book> books = bookService.getAllBooks();  // Get the list of books
+        model.addAttribute("books", books);  // Add the list of books to the model
+        return "books";  // This is the Thymeleaf template "books.html"
+    }
+
+    // Create a new book from the form
     @PostMapping("/add")
     public String addBook(@RequestParam String title, @RequestParam String author) {
-        Book newBook = new Book(title, author); // Crear un nuevo libro
-        bookService.addBook(newBook); // Agregar el libro al servicio
-        return "redirect:/books/list"; // Redirigir a la lista de libros
+        Book newBook = new Book(title, author);  // Create a new book
+        bookService.addBook(newBook);  // Add the book to the service
+        return "redirect:/books/list";  // Redirect to the list of books
     }
 
-    // Método para cargar la página de agregar libro
+    // Load the page to add a new book
     @GetMapping("/add")
     public String showAddBookForm() {
-        return "add-book";
+        return "add-book";  // This is the Thymeleaf template "add-book.html"
     }
+
+    // Method to delete a book
+    @PostMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") int id) {
+        bookService.delete(id); // Delete the book from the service
+        return "redirect:/books/list"; // Redirect back to the list of books
+    }
+
 }
 
