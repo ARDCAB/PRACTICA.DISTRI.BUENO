@@ -5,6 +5,7 @@ import es.codeurjc.model.PuntoRecogida;
 import es.codeurjc.service.PuntoRecogidaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,39 +18,48 @@ public class PuntoRecogidaController {
     @Autowired
     private PuntoRecogidaService puntoService;
 
-    // Get all pickup points
+    // Get all pickup points (to display on the page)
     @GetMapping
-    @ResponseBody
-    public List<PuntoRecogida> getAll() {
-        return puntoService.getAll();
+    public String getAll(Model model) {
+        List<PuntoRecogida> puntos = puntoService.getAll();
+        model.addAttribute("puntoRecogidas", puntos);
+        return "puntoRecogidaList"; // Thymeleaf template
     }
 
-    // Get a pickup point by ID
-    @GetMapping("/{id}")
-    @ResponseBody
-    public PuntoRecogida getById(@PathVariable int id) {
+    // Show form for creating a new pickup point
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        model.addAttribute("puntoRecogida", new PuntoRecogida()); // Empty form object
+        return "addPuntoRecogidaForm"; // Thymeleaf template for adding
+    }
+
+    // Create a new pickup point (via form)
+    @PostMapping("/add")
+    public String create(@ModelAttribute PuntoRecogida punto) {
+        puntoService.create(punto);
+        return "puntos"; // Redirect back to the list
+    }
+
+    // Show form for editing an existing pickup point
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable int id, Model model) {
         PuntoRecogida punto = puntoService.getById(id);
         if (punto == null) {
-            throw new PuntoRecogidaNotFoundException(id);  // Handle not found error (you can customize the exception)
+            throw new PuntoRecogidaNotFoundException(id); // Custom exception if not found
         }
-        return punto;
+        model.addAttribute("puntoRecogida", punto);
+        return "editPuntoRecogidaForm"; // Thymeleaf template for editing
     }
 
-    // Create a new pickup point
-    @PostMapping
-    @ResponseBody
-    public PuntoRecogida create(@RequestBody PuntoRecogida punto) {
-        return puntoService.create(punto);
+    // Update an existing pickup point
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable int id, @ModelAttribute PuntoRecogida punto) {
+        punto.setId(id); // Ensure the ID is retained during update
+        puntoService.update(id, punto);
+        return "puntos"; // Redirect back to the list
     }
 
-    // Update a pickup point by ID
-    @PutMapping("/{id}")
-    @ResponseBody
-    public PuntoRecogida update(@PathVariable int id, @RequestBody PuntoRecogida punto) {
-        return puntoService.update(id, punto);
-    }
-
-    // Partially update a pickup point by ID
+    // Partially update a pickup point (handled by PATCH)
     @PatchMapping("/{id}")
     @ResponseBody
     public PuntoRecogida patch(@PathVariable int id, @RequestBody Map<String, Object> updates) {
@@ -57,8 +67,9 @@ public class PuntoRecogidaController {
     }
 
     // Delete a pickup point by ID
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable int id) {
         puntoService.delete(id);
+        return "redirect:/puntos"; // Redirect back to the list
     }
 }

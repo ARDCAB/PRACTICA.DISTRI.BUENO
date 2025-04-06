@@ -36,12 +36,34 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK); // OK response with user data
     }
 
-    // Create a new user
-    @PostMapping
-    @ResponseBody
-    public ResponseEntity<User> create(@RequestBody User user) {
-        User createdUser = userService.create(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED); // 201 Created
+    // Create a new user (Register)
+    @PostMapping("/register")
+    public String register(@RequestParam String nombre, @RequestParam String email, @RequestParam String password) {
+        // Crear el usuario
+        User user = new User();
+        user.setNombre(nombre);
+        user.setEmail(email);
+        user.setPassword(password); // Asegúrate de que el campo 'password' exista en la clase User.
+
+        // Registrar el usuario
+        userService.create(user);
+
+        // Redirigir a la página principal (índice)
+        return "redirect:/"; // Redirige a la raíz de la aplicación (index)
+    }
+
+    // User login
+    @PostMapping("/login")
+    public String login(@RequestParam String email, @RequestParam String password) {
+        boolean isAuthenticated = userService.authenticate(email, password);
+
+        if (isAuthenticated) {
+            // Si la autenticación es exitosa, redirige al usuario a la página principal o a un área protegida
+            return "redirect:/"; // Redirige a la página principal
+        } else {
+            // Si la autenticación falla, redirige a una página de error o muestra un mensaje de error
+            return "redirect:/login?error"; // Redirige a la página de login con un parámetro de error
+        }
     }
 
     // Update a user by ID
