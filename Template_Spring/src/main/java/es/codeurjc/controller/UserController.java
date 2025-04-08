@@ -54,15 +54,13 @@ public class UserController {
 
     // User login
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password) {
-        boolean isAuthenticated = userService.authenticate(email, password);
+    public String login(@RequestParam String nombre, @RequestParam String password) {
+        boolean isAuthenticated = userService.authenticate(nombre, password);
 
         if (isAuthenticated) {
-            // Si la autenticación es exitosa, redirige al usuario a la página principal o a un área protegida
-            return "redirect:/"; // Redirige a la página principal
+            return "redirect:/?success"; // popup de "¡Bienvenido!"
         } else {
-            // Si la autenticación falla, redirige a una página de error o muestra un mensaje de error
-            return "redirect:/login?error"; // Redirige a la página de login con un parámetro de error
+            return "redirect:/error";
         }
     }
 

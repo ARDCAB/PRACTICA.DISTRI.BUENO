@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - The Book Barter</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://use.typekit.net/fvp4ryh.css">
+</head>
+
+<body>
+<header>
+  <h1>
+    <a href="index.html" style="text-decoration: none;">
+      <span class="title-main">THE BOOK BARTER</span>
+      <br>
+      <span class="title-sub">CONCEPT <span class="title-sub-italic">of Deal</span></span>
+      <br>
+      <span class="title-sub">MADRID</span>
+    </a>
+  </h1>
+</header>
+
+<div class="hero-container">
+  <img src="/assets/background.png" alt="Background Image" class="hero-image">
+  <div class="hero-text">
+    "SWAP STORIES,<br> SHARE KNOWLEDGE,<br> SUSTAIN READING"
+  </div>
+</div>
+
+<hr class="separator">
+
+<!-- Register Form -->
+<section class="extra-content">
+  <h2 class="form-title">Register</h2>
+  <form action="/users/register" method="POST">
+    <label>Username:</label><br>
+    <input type="text" id="username" name="nombre" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+</section>
+
+</body>
+</html>

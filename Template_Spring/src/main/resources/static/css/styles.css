@@ -272,7 +272,7 @@ h1 {
 
 /*Styles for books.html*/
 body {
-    background-color: white; 
+    background-color: white;
 }
 
 .search-container {
@@ -284,7 +284,7 @@ body {
     width: 80%;
     padding: 10px;
     font-size: 16px;
-    border-radius: 25px; 
+    border-radius: 25px;
     border: 1px solid #ccc;
     font-family: "acumin-variable", sans-serif;
 }
@@ -298,7 +298,7 @@ body {
 }
 
 .category-box {
-    width: 40px; 
+    width: 40px;
     height: auto;
 }
 
@@ -310,15 +310,39 @@ body {
 .book-list {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .book-cover {
-    width: 100px; 
+    width: 100px;
     height: auto;
+    border-radius: 8px;
 }
 
 
+
+
+.book-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reserve-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.reserve-button:hover {
+    background-color: #555;
+}
 
 
 
@@ -424,4 +448,83 @@ body {
     top: 3000px;
     left: 550px; 
     position: absolute;
+}
+
+/* Sección del formulario */
+.form-section {
+    background-color: white;
+    padding: 60px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-title {
+    font-family: 'Acumin', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #0D6099;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  form {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  form label {
+    font-size: 16px;
+    margin: 15px 0 5px;
+    align-self: flex-start;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: 'Acumin', sans-serif;
+  }
+
+  form input[type="submit"] {
+    margin-top: 25px;
+    padding: 12px 24px;
+    background-color: #0D6099;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  form input[type="submit"]:hover {
+    background-color: #093f6c;
+  }
+
+.login-register-link {
+    margin-top: 30px;
+    font-size: 16px;
+    font-family: 'Acumin', sans-serif;
+}
+
+.login-register-link a {
+    color: #0D6099;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register-link a:hover {
+    text-decoration: underline;
 }

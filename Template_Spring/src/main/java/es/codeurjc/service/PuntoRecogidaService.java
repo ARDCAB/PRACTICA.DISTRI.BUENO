@@ -1,5 +1,6 @@
 package es.codeurjc.service;
 
+import es.codeurjc.model.Book;
 import es.codeurjc.model.PuntoRecogida;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,14 @@ public class PuntoRecogidaService {
             }
         }
         return punto;
+    }
+
+    // Agregar un libro (método adicional)
+    public PuntoRecogida addPunto(PuntoRecogida p) {
+        p.setId(currentId++);
+        puntos.put(p.getId(), p);
+        System.out.println("Punto Recogida añadido: " + p.getId());
+        return p;
     }
 
     public boolean delete(int id) {

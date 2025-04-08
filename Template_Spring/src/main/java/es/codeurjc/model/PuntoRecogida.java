@@ -15,6 +15,12 @@ public class PuntoRecogida {
         this.ciudad = ciudad;
         this.userId = userId;
     }
+    public PuntoRecogida( String direccion, String ciudad, int userId) {
+        this.id = 0; // Asignar un valor predeterminado, el id se puede establecer más tarde.
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.userId = userId;
+    }
 
     public int getId() {
         return id;

@@ -71,7 +71,7 @@ public class UserService {
     public boolean authenticate(String username, String password) {
         // Buscar el usuario por nombre de usuario (puedes usar username si se agrega en el User)
         User user = users.values().stream()
-                .filter(u -> u.getEmail().equals(username)) // Ahora es por email
+                .filter(u -> u.getNombre().equals(username))
                 .findFirst()
                 .orElse(null);
 

@@ -1,6 +1,7 @@
 package es.codeurjc.controller;
 
 import es.codeurjc.exception.PuntoRecogidaNotFoundException;
+import es.codeurjc.model.Book;
 import es.codeurjc.model.PuntoRecogida;
 import es.codeurjc.service.PuntoRecogidaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +20,27 @@ public class PuntoRecogidaController {
     private PuntoRecogidaService puntoService;
 
     // Get all pickup points (to display on the page)
-    @GetMapping
+    @GetMapping("/api")
     public String getAll(Model model) {
         List<PuntoRecogida> puntos = puntoService.getAll();
         model.addAttribute("puntoRecogidas", puntos);
         return "puntoRecogidaList"; // Thymeleaf template
     }
 
-    // Show form for creating a new pickup point
-    @GetMapping("/add")
-    public String showAddForm(Model model) {
-        model.addAttribute("puntoRecogida", new PuntoRecogida()); // Empty form object
-        return "addPuntoRecogidaForm"; // Thymeleaf template for adding
+    @PostMapping("/api")
+    @ResponseBody
+    public PuntoRecogida createApi(@RequestBody PuntoRecogida punto) {
+        return puntoService.create(punto);
     }
 
     // Create a new pickup point (via form)
     @PostMapping("/add")
-    public String create(@ModelAttribute PuntoRecogida punto) {
-        puntoService.create(punto);
-        return "puntos"; // Redirect back to the list
+    public String addPunto(@RequestParam String direccion, @RequestParam String ciudad, @RequestParam int userId){
+        PuntoRecogida punto = new PuntoRecogida(direccion, ciudad, userId);
+        puntoService.addPunto(punto);  // Add the book to the service
+        return "redirect:/"; // Redirect back to the list
     }
+
 
     // Show form for editing an existing pickup point
     @GetMapping("/edit/{id}")

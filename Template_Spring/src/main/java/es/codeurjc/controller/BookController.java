@@ -84,6 +84,7 @@ public class BookController {
         return "redirect:/books/list";  // Redirect to the list of books
     }
 
+
     // Load the page to add a new book
     @GetMapping("/add")
     public String showAddBookForm() {
