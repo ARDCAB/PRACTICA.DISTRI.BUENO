@@ -97,7 +97,9 @@
 
 <div class="categories">
     <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='allBooks.html'">
-    <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
+    <a href="contemporary.html">
+        <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
+    </a>
     <img src="/assets/fantasy.png" alt="Fantasy" class="category-box">
     <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='romance.html'">
     <img src="/assets/psycho.png" alt="Psychology" class="category-box">
@@ -157,6 +159,16 @@
 
         <label for="author">Author:</label>
         <input type="text" id="author" name="author" required><br><br>
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre" required>
+            <option value="">-- Select Genre --</option>
+            <option value="CONTEMPORARY">Contemporary</option>
+            <option value="FANTASY">Fantasy</option>
+            <option value="ROMANCE">Romance</option>
+            <option value="PSYCHOLOGY">Psychology</option>
+            <option value="HISTORY">History</option>
+            <option value="EDUCATION">Education</option>
+        </select><br><br>
 
         <button type="submit">Add Book</button>
     </form>

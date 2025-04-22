@@ -52,6 +52,16 @@ public class PuntoRecogidaController {
         model.addAttribute("puntoRecogida", punto);
         return "editPuntoRecogidaForm"; // Thymeleaf template for editing
     }
+    @GetMapping("/{id}")
+    @ResponseBody
+    public PuntoRecogida getPuntoById(@PathVariable int id) {
+        PuntoRecogida punto = puntoService.getById(id);
+        if (punto == null) {
+            throw new PuntoRecogidaNotFoundException(id);
+        }
+        return punto;
+    }
+
 
     // Update an existing pickup point
     @PostMapping("/edit/{id}")
@@ -60,6 +70,7 @@ public class PuntoRecogidaController {
         puntoService.update(id, punto);
         return "puntos"; // Redirect back to the list
     }
+
 
     // Partially update a pickup point (handled by PATCH)
     @PatchMapping("/{id}")
@@ -75,3 +86,5 @@ public class PuntoRecogidaController {
         return "redirect:/puntos"; // Redirect back to the list
     }
 }
+
+

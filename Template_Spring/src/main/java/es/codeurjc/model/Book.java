@@ -5,15 +5,17 @@ public class Book {
     private String titulo;
     private String autor;
     private int userId; // ID del dueño (User)
+    private String genre;
 
     public Book() {
     }
 
-    public Book(int id, String titulo, String autor, int userId) {
+    public Book(int id, String titulo, String autor, int userId, String genre) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.userId = userId;
+        this.genre = genre;
     }
 
     public Book(String titulo, String autor) {

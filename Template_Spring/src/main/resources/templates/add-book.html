@@ -98,9 +98,20 @@
 
     <label for="author">Author:</label>
     <input type="text" id="author" name="author" required placeholder="Enter book author"><br><br>
+    <label for="genre">Genre:</label>
+    <select id="genre" name="genre" required>
+      <option value="">-- Select Genre --</option>
+      <option value="CONTEMPORARY">Contemporary</option>
+      <option value="FANTASY">Fantasy</option>
+      <option value="ROMANCE">Romance</option>
+      <option value="PSYCHOLOGY">Psychology</option>
+      <option value="HISTORY">History</option>
+      <option value="EDUCATION">Education</option>
+    </select><br><br>
 
     <button type="submit">Add Book</button>
   </form>
+
 
   <div class="back-button">
     <a href="/books/list">Back to Book List</a>
