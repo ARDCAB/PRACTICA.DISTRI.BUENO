@@ -7,7 +7,6 @@ public class User {
  private String password;  // Campo para la contraseña
  private int puntos; // Número de puntos del usuario
 
-
  // Constructor por defecto
  public User() {}
 

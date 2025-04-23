@@ -1,5 +1,7 @@
 package es.codeurjc.model;
 
+import javax.persistence.Id;
+
 public class Book {
     private int id;
     private String titulo;
