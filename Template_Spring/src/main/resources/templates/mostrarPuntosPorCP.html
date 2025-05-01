@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Puntos de Recogida</title>
+</head>
+<body>
+<h1>Puntos de Recogida para Código Postal</h1>
+<p><strong>Dirección asociada:</strong> <span th:text="${direccionPostal}"></span></p>
+<ul>
+    <li th:each="punto : ${puntos}" th:text="'ID: ' + ${punto.id} + ', Usuario: ' + ${punto.userId}"></li>
+</ul>
+</body>
+</html>
