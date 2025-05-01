@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9056337a-7efd-451e-a5c5-6a39cee3f83c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/PRACTICA.DISTRI.BUENO2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Template_Spring/src/main/java/es/codeurjc/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Template_Spring/src/main/java/es/codeurjc/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/allBooks.html" beforeDir="false" afterPath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/allBooks.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/books.html" beforeDir="false" afterPath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/books.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/romance.html" beforeDir="false" afterPath="$PROJECT_DIR$/Template_Spring/src/main/resources/templates/romance.html" afterDir="false" />
+    <list default="true" id="9056337a-7efd-451e-a5c5-6a39cee3f83c" name="Changes" comment="Punto recogida">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
@@ -83,6 +78,39 @@
       <option name="presentableId" value="Default" />
       <updated>1744146866316</updated>
     </task>
+    <task id="LOCAL-00001" summary="Punto recogida">
+      <option name="closed" value="true" />
+      <created>1746098653907</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746098653907</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Punto recogida">
+      <option name="closed" value="true" />
+      <created>1746098763622</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746098763622</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Punto recogida">
+      <option name="closed" value="true" />
+      <created>1746098781901</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746098781901</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Punto recogida">
+      <option name="closed" value="true" />
+      <created>1746098893062</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746098893062</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -95,5 +123,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Punto recogida" />
+    <option name="LAST_COMMIT_MESSAGE" value="Punto recogida" />
   </component>
 </project>
