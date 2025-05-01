@@ -1,0 +1,392 @@
+Index: Template_Spring/src/main/java/es/codeurjc/controller/BookController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package es.codeurjc.controller;\r\n\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport es.codeurjc.model.Book;\r\nimport es.codeurjc.service.BookService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\n@Controller\r\n@RequestMapping(\"/books\")\r\npublic class BookController {\r\n\r\n    @Autowired\r\n    private BookService bookService;\r\n\r\n    // REST API - Get all books (for REST calls)\r\n    @GetMapping(\"/api\")\r\n    @ResponseBody\r\n    public List<Book> getAll() {\r\n        return bookService.getAll();\r\n    }\r\n\r\n    // REST API - Get a book by ID (for REST calls)\r\n    @GetMapping(\"/api/{id}\")\r\n    @ResponseBody\r\n    public Book getByIdApi(@PathVariable int id) {\r\n        return bookService.getById(id);\r\n    }\r\n\r\n    // REST API - Create a book (for REST calls)\r\n    @PostMapping(\"/api\")\r\n    @ResponseBody\r\n    public Book createApi(@RequestBody Book book) {\r\n        return bookService.create(book);\r\n    }\r\n\r\n    // REST API - Update a book (for REST calls)\r\n    @PutMapping(\"/api/{id}\")\r\n    @ResponseBody\r\n    public Book updateApi(@PathVariable int id, @RequestBody Book book) {\r\n        return bookService.update(id, book);\r\n    }\r\n\r\n    // REST API - Partially update a book (for REST calls)\r\n    @PatchMapping(\"/api/{id}\")\r\n    @ResponseBody\r\n    public Book patchApi(@PathVariable int id, @RequestBody Map<String, Object> updates) {\r\n        return bookService.patch(id, updates);\r\n    }\r\n\r\n    // REST API - Delete a book (for REST calls)\r\n    @DeleteMapping(\"/api/{id}\")\r\n    @ResponseBody\r\n    public void deleteApi(@PathVariable int id) {\r\n        bookService.delete(id);\r\n    }\r\n\r\n    // Show the books page when accessing /books\r\n    @GetMapping(\"\")\r\n    public String showBooksPage(Model model) {\r\n        List<Book> books = bookService.getAllBooks();  // Get the list of books\r\n        model.addAttribute(\"books\", books);  // Add the list of books to the model\r\n        return \"books\";  // This is the Thymeleaf template \"books.html\"\r\n    }\r\n\r\n    // Show the list of books in the /books/list view\r\n    @GetMapping(\"/list\")\r\n    public String showBooksListPage(Model model) {\r\n        List<Book> books = bookService.getAllBooks();  // Get the list of books\r\n        model.addAttribute(\"books\", books);  // Add the list of books to the model\r\n        return \"books\";  // This is the Thymeleaf template \"books.html\"\r\n    }\r\n\r\n    // Create a new book from the form\r\n    @PostMapping(\"/add\")\r\n    public String addBook(@RequestParam String title, @RequestParam String author) {\r\n        Book newBook = new Book(title, author);  // Create a new book\r\n        bookService.addBook(newBook);  // Add the book to the service\r\n        return \"redirect:/books/list\";  // Redirect to the list of books\r\n    }\r\n\r\n\r\n    // Load the page to add a new book\r\n    @GetMapping(\"/add\")\r\n    public String showAddBookForm() {\r\n        return \"add-book\";  // This is the Thymeleaf template \"add-book.html\"\r\n    }\r\n\r\n    // Method to delete a book\r\n    @PostMapping(\"/delete/{id}\")\r\n    public String deleteBook(@PathVariable(\"id\") int id) {\r\n        bookService.delete(id); // Delete the book from the service\r\n        return \"redirect:/books/list\"; // Redirect back to the list of books\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Template_Spring/src/main/java/es/codeurjc/controller/BookController.java b/Template_Spring/src/main/java/es/codeurjc/controller/BookController.java
+--- a/Template_Spring/src/main/java/es/codeurjc/controller/BookController.java	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
++++ b/Template_Spring/src/main/java/es/codeurjc/controller/BookController.java	(date 1744148338612)
+@@ -98,5 +98,21 @@
+         return "redirect:/books/list"; // Redirect back to the list of books
+     }
+ 
++
++
++
++    @GetMapping("/romance")
++    public String romancePage() {
++        return "romance"; // busca romance.html
++    }
++
++    @GetMapping("/allBooks")
++    public String allBooksPage() {
++        return "allBooks"; // busca allBooks.html
++    }
++
++
++
++
+ }
+ 
+Index: Template_Spring/src/main/resources/templates/allBooks.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>All Books</title>\r\n    <link rel=\"stylesheet\" href=\"styles.css\">\r\n    <link rel=\"stylesheet\" href=\"https://use.typekit.net/fvp4ryh.css\">\r\n</head>\r\n<body>\r\n\r\n    <header>\r\n        <h1>\r\n            <span class=\"title-main\">THE BOOK BARTER</span>\r\n            <br>\r\n            <span class=\"title-sub\">CONCEPT <span class=\"title-sub-italic\">of Deal</span></span>\r\n            <br>\r\n            <span class=\"title-sub\">MADRID</span>\r\n        </h1>\r\n    </header>\r\n\r\n    \r\n    <div class=\"search-container\">\r\n        <input type=\"text\" class=\"search-bar\" placeholder=\"Search for books\">\r\n    </div>\r\n\r\n    \r\n    <div class=\"categories\">\r\n        <img src=\"images/all2.png\" alt=\"All\" class=\"category-box\" onclick=\"window.location.href='books.html'\">\r\n        <img src=\"images/contemporary.png\" alt=\"Contemporary\" class=\"category-box\">\r\n        <img src=\"images/fantasy.png\" alt=\"Fantasy\" class=\"category-box\">\r\n        <img src=\"images/romance.png\" alt=\"Romance\" class=\"category-box\">\r\n        <img src=\"images/psycho.png\" alt=\"Psychology\" class=\"category-box\">\r\n        <img src=\"images/history.png\" alt=\"History\" class=\"category-box\">\r\n        <img src=\"images/education.png\" alt=\"Education\" class=\"category-box\">\r\n    </div>\r\n\r\n\r\n    <div id=\"all-books-container\" style=\"text-align: center;\">\r\n        <img src=\"images/allBooks.png\" alt=\"All Books\" class=\"all-books-image\">\r\n    </div>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Template_Spring/src/main/resources/templates/allBooks.html b/Template_Spring/src/main/resources/templates/allBooks.html
+--- a/Template_Spring/src/main/resources/templates/allBooks.html	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
++++ b/Template_Spring/src/main/resources/templates/allBooks.html	(date 1744147250660)
+@@ -4,7 +4,7 @@
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>All Books</title>
+-    <link rel="stylesheet" href="styles.css">
++    <link rel="stylesheet" href="/css/styles.css">
+     <link rel="stylesheet" href="https://use.typekit.net/fvp4ryh.css">
+ </head>
+ <body>
+@@ -26,18 +26,18 @@
+ 
+     
+     <div class="categories">
+-        <img src="images/all2.png" alt="All" class="category-box" onclick="window.location.href='books.html'">
+-        <img src="images/contemporary.png" alt="Contemporary" class="category-box">
+-        <img src="images/fantasy.png" alt="Fantasy" class="category-box">
+-        <img src="images/romance.png" alt="Romance" class="category-box">
+-        <img src="images/psycho.png" alt="Psychology" class="category-box">
+-        <img src="images/history.png" alt="History" class="category-box">
+-        <img src="images/education.png" alt="Education" class="category-box">
++        <img src="/assets/all2.png" alt="All" class="category-box" onclick="window.location.href='books.html'">
++        <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
++        <img src="/assets//fantasy.png" alt="Fantasy" class="category-box">
++        <img src="/assets/romance.png" alt="Romance" class="category-box">
++        <img src="/assets/psycho.png" alt="Psychology" class="category-box">
++        <img src="/assets/history.png" alt="History" class="category-box">
++        <img src="/assets/education.png" alt="Education" class="category-box">
+     </div>
+ 
+ 
+     <div id="all-books-container" style="text-align: center;">
+-        <img src="images/allBooks.png" alt="All Books" class="all-books-image">
++        <img src="/assets/allBooks.png" alt="All Books" class="all-books-image">
+     </div>
+ 
+ </body>
+Index: Template_Spring/src/main/resources/templates/books.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Book Room</title>\r\n    <link rel=\"stylesheet\" href=\"/css/styles.css\">\r\n    <link rel=\"stylesheet\" href=\"https://use.typekit.net/fvp4ryh.css\">\r\n    <style>\r\n        /* Estilos para el formulario */\r\n        .form-container {\r\n            margin: 30px auto;\r\n            width: 50%;\r\n            background-color: #f9f9f9;\r\n            padding: 20px;\r\n            border-radius: 8px;\r\n            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n        }\r\n\r\n        .form-container h3 {\r\n            text-align: center;\r\n            margin-bottom: 20px;\r\n        }\r\n\r\n        .form-container label {\r\n            font-size: 18px;\r\n            display: block;\r\n            margin-bottom: 8px;\r\n        }\r\n\r\n        .form-container input {\r\n            width: 100%;\r\n            padding: 12px;\r\n            margin-bottom: 15px;\r\n            border: 1px solid #ccc;\r\n            border-radius: 4px;\r\n            font-size: 16px;\r\n        }\r\n\r\n        .form-container button {\r\n            display: block;\r\n            width: 100%;\r\n            padding: 12px;\r\n            background-color: #4CAF50;\r\n            color: white;\r\n            border: none;\r\n            border-radius: 4px;\r\n            font-size: 18px;\r\n            cursor: pointer;\r\n        }\r\n\r\n        .form-container button:hover {\r\n            background-color: #45a049;\r\n        }\r\n\r\n        /* Estilo para los libros */\r\n        .book-list {\r\n            display: grid;\r\n            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));\r\n            gap: 20px;\r\n        }\r\n\r\n        .book-card {\r\n            padding: 15px;\r\n            background-color: #f1f1f1;\r\n            border-radius: 8px;\r\n            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n            text-align: center;\r\n        }\r\n\r\n        .book-card h4 {\r\n            margin-top: 10px;\r\n            font-size: 18px;\r\n        }\r\n\r\n        .book-card p {\r\n            margin: 5px 0;\r\n            color: #777;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n<header>\r\n    <a href=\"index.html\" style=\"text-decoration: none;\">\r\n        <h1>\r\n            <span class=\"title-main\">THE BOOK BARTER</span>\r\n            <br>\r\n            <span class=\"title-sub\">CONCEPT <span class=\"title-sub-italic\">of Deal</span></span>\r\n            <br>\r\n            <span class=\"title-sub\">MADRID</span>\r\n        </h1>\r\n    </a>\r\n</header>\r\n\r\n<div class=\"search-container\">\r\n    <input type=\"text\" class=\"search-bar\" id=\"searchInput\" placeholder=\"Search for books\" onkeyup=\"filterBooks()\">\r\n</div>\r\n\r\n<div class=\"categories\">\r\n    <img src=\"/assets/all.png\" alt=\"All\" class=\"category-box\" onclick=\"window.location.href='allBooks.html'\">\r\n    <img src=\"/assets/contemporary.png\" alt=\"Contemporary\" class=\"category-box\">\r\n    <img src=\"/assets/fantasy.png\" alt=\"Fantasy\" class=\"category-box\">\r\n    <img src=\"/assets/romance.png\" alt=\"Romance\" class=\"category-box\" onclick=\"window.location.href='romance.html'\">\r\n    <img src=\"/assets/psycho.png\" alt=\"Psychology\" class=\"category-box\">\r\n    <img src=\"/assets/history.png\" alt=\"History\" class=\"category-box\">\r\n    <img src=\"/assets/education.png\" alt=\"Education\" class=\"category-box\">\r\n</div>\r\n\r\n<div class=\"popular-section\">\r\n    <h2>Popular</h2>\r\n    <div class=\"book-list\">\r\n        <div class=\"book-item\">\r\n            <img src=\"/assets/book1.png\" alt=\"Book 1\" class=\"book-cover\">\r\n            <button class=\"reserve-button\" onclick=\"window.location.href='/pickup'\">Reserve book</button>\r\n        </div>\r\n        <div class=\"book-item\">\r\n            <img src=\"/assets/book2.png\" alt=\"Book 2\" class=\"book-cover\">\r\n            <button class=\"reserve-button\" onclick=\"window.location.href='/pickup'\">Reserve book</button>\r\n        </div>\r\n        <div class=\"book-item\">\r\n            <img src=\"/assets/book3.png\" alt=\"Book 3\" class=\"book-cover\">\r\n            <button class=\"reserve-button\" onclick=\"window.location.href='/pickup'\">Reserve book</button>\r\n        </div>\r\n        <div class=\"book-item\">\r\n            <img src=\"/assets/book4.png\" alt=\"Book 4\" class=\"book-cover\">\r\n            <button class=\"reserve-button\" onclick=\"window.location.href='/pickup'\">Reserve book</button>\r\n        </div>\r\n        <div class=\"book-item\">\r\n            <img src=\"/assets/book5.png\" alt=\"Book 5\" class=\"book-cover\">\r\n            <button class=\"reserve-button\" onclick=\"window.location.href='/pickup'\">Reserve book</button>\r\n        </div>\r\n    </div> <!-- Este cierre faltaba -->\r\n</div>\r\n<div class=\"popular-section\">\r\n    <h2>Popular</h2>\r\n    <div class=\"book-list\" id=\"booksList\">\r\n        <!-- Iterar sobre la lista de libros con Mustache -->\r\n        {{#books}}\r\n        <div class=\"book-card\">\r\n            <h4>{{titulo}}</h4>  <!-- Muestra el título del libro -->\r\n            <p>{{autor}}</p>  <!-- Muestra el autor del libro -->\r\n\r\n            <!-- Formulario de eliminación -->\r\n            <form action=\"/books/delete/{{id}}\" method=\"POST\" onsubmit=\"return confirm('Are you sure you want to delete this book?');\">\r\n                <button type=\"submit\">Delete</button>\r\n            </form>\r\n        </div>\r\n        {{/books}}\r\n    </div>\r\n</div>\r\n\r\n<!-- Formulario para agregar un libro -->\r\n<div class=\"form-container\">\r\n    <h3>Add a New Book</h3>\r\n    <form action=\"/books/add\" method=\"POST\">\r\n        <label for=\"title\">Title:</label>\r\n        <input type=\"text\" id=\"title\" name=\"title\" required><br><br>\r\n\r\n        <label for=\"author\">Author:</label>\r\n        <input type=\"text\" id=\"author\" name=\"author\" required><br><br>\r\n\r\n        <button type=\"submit\">Add Book</button>\r\n    </form>\r\n</div>\r\n\r\n<!-- Botón para ver los libros añadidos -->\r\n<div class=\"form-container\">\r\n    <a href=\"/books/list\">\r\n        <button type=\"button\">View Added Books</button>\r\n    </a>\r\n</div>\r\n\r\n<div id=\"all-books-container\" style=\"display: none; text-align: center;\">\r\n    <img src=\"/assets/allBooks.png\" alt=\"All Books\" class=\"all-books-image\">\r\n</div>\r\n\r\n<div class=\"book-container\">\r\n    <div class=\"book-text\">\r\n        <h2>Books are the quietest and most constant of friends; <br>they are the most accessible and wisest of counselors, <br> and the most patient of teachers.</h2>\r\n        <p>- Charles W. Eliot</p>\r\n    </div>\r\n    <img src=\"/assets/book6.png\" alt=\"Book 6\" class=\"book-image\">\r\n</div>\r\n\r\n<script src=\"/js/books.js\"></script> <!-- Aquí se carga el archivo JS -->\r\n<script>\r\n    // Aquí puedes agregar la lógica de JavaScript para cargar los libros y hacer búsquedas\r\n    function filterBooks() {\r\n        const query = document.getElementById('searchInput').value.toLowerCase();\r\n        const bookCards = document.querySelectorAll('.book-card');\r\n        bookCards.forEach(card => {\r\n            const title = card.querySelector('h4').textContent.toLowerCase();\r\n            const author = card.querySelector('p').textContent.toLowerCase();\r\n            if (title.includes(query) || author.includes(query)) {\r\n                card.style.display = '';\r\n            } else {\r\n                card.style.display = 'none';\r\n            }\r\n        });\r\n    }\r\n</script>\r\n\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Template_Spring/src/main/resources/templates/books.html b/Template_Spring/src/main/resources/templates/books.html
+--- a/Template_Spring/src/main/resources/templates/books.html	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
++++ b/Template_Spring/src/main/resources/templates/books.html	(date 1744148474308)
+@@ -96,10 +96,10 @@
+ </div>
+ 
+ <div class="categories">
+-    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='allBooks.html'">
++    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='allBooks.html">
+     <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
+     <img src="/assets/fantasy.png" alt="Fantasy" class="category-box">
+-    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='romance.html'">
++    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='romance'">
+     <img src="/assets/psycho.png" alt="Psychology" class="category-box">
+     <img src="/assets/history.png" alt="History" class="category-box">
+     <img src="/assets/education.png" alt="Education" class="category-box">
+Index: Template_Spring/src/main/resources/templates/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"utf-8\"/>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <meta name=\"description\" content=\"\"/>\r\n    <meta name=\"author\" content=\"\"/>\r\n    <title>The Book Barter Concept</title>\r\n    <link href=\"/css/styles.css\" rel=\"stylesheet\"/>\r\n    <link rel=\"stylesheet\" href=\"https://use.typekit.net/fvp4ryh.css\">\r\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\r\n</head>\r\n<body>\r\n<header>\r\n    <h1>\r\n        <span class=\"title-main\">THE BOOK BARTER</span>\r\n        <br>\r\n        <span class=\"title-sub\">CONCEPT <span class=\"title-sub-italic\">of Deal</span></span>\r\n        <br>\r\n        <span class=\"title-sub\">MADRID</span>\r\n    </h1>\r\n</header>\r\n\r\n<div class=\"hero-container\">\r\n    <img src=\"../assets/background.png\" alt=\"Background Image\" class=\"hero-image\">\r\n    <div class=\"hero-text\">\r\n        \"SWAP STORIES,<br> SHARE KNOWLEDGE,<br> SUSTAIN READING\"\r\n    </div>\r\n</div>\r\n\r\n<hr class=\"separator\">\r\n\r\n<div class=\"extra-content\">\r\n    <div class=\"extra-content-text\">\r\n        SWAP AND SHARE <br> STORIES, <br> EXCHANGE <br> KNOWLEDGE, <br> BUILD COMMUNITY, <br> AND PROMOTE <br> SUSTAINABLE <br> READING.\r\n    </div>\r\n\r\n    <div class=\"mission-container\">\r\n        <div class=\"mission-box\">\r\n            Want to know more about our mission? Click <span class=\"highlight\">Here</span>\r\n        </div>\r\n        <div class=\"mission-box\">\r\n            Have <span class=\"small\">questions</span> or book requests? <a href=\"contact.html\" class=\"highlight\">Contact us</a>\r\n        </div>\r\n        <div class=\"mission-box\">\r\n            <span class=\"small\">Ready to start swapping books?</span> <a href=\"/register\" class=\"highlight\">Register</a> or <a href=\"/login\" class=\"highlight\">Log in</a>\r\n            <span class=\"small\">now</span>\r\n        </div>\r\n        <div class=\"mission-box\">\r\n            <strong>BOOK ROOM</strong><br>\r\n            Not sure what to read next? Explore our <a href=\"/books\" class=\"highlight-big\">catalog</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<hr class=\"separator\">\r\n\r\n<div class=\"landing-container\">\r\n    <img src=\"/assets/fotolanding.png\" alt=\"Foto de Landing\" class=\"landing-image\">\r\n    <div class=\"landing-text\" onclick=\"openBooksPage()\">\r\n        <span class=\"book\">Book</span><span class=\"room\">ROOM</span>\r\n    </div>\r\n</div>\r\n\r\n<!-- New Section for PuntoRecogida (Pickup Points) -->\r\n<div class=\"form-container\">\r\n    <a href=\"/puntos/add\">\r\n        <button type=\"button\">Manage Pickup Points</button>\r\n    </a>\r\n</div>\r\n\r\n<hr class=\"separator\">\r\n\r\n<!-- PuntoRecogida Form (for adding or editing) -->\r\n<div class=\"form-container\">\r\n    <h3>Add a New Pickup Point</h3>\r\n    <form action=\"/puntos/add\" method=\"POST\">\r\n        <label for=\"direccion\">Address:</label>\r\n        <input type=\"text\" id=\"direccion\" name=\"direccion\" required><br><br>\r\n\r\n        <label for=\"ciudad\">City:</label>\r\n        <input type=\"text\" id=\"ciudad\" name=\"ciudad\" required><br><br>\r\n\r\n        <label for=\"userId\">User ID:</label>\r\n        <input type=\"number\" id=\"userId\" name=\"userId\" required><br><br>\r\n\r\n        <button type=\"submit\">Add Pickup Point</button>\r\n    </form>\r\n</div>\r\n\r\n<script>\r\n    function openBooksPage() {\r\n        window.location.href = \"/books\"; // Redirects to /books\r\n    }\r\n    window.onload = function() {\r\n        const urlParams = new URLSearchParams(window.location.search);\r\n\r\n        if (urlParams.has('success')) {\r\n            alert('¡Bienvenido!');\r\n        }\r\n    }\r\n</script>\r\n\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Template_Spring/src/main/resources/templates/index.html b/Template_Spring/src/main/resources/templates/index.html
+--- a/Template_Spring/src/main/resources/templates/index.html	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
++++ b/Template_Spring/src/main/resources/templates/index.html	(date 1744147375485)
+@@ -40,7 +40,7 @@
+             Want to know more about our mission? Click <span class="highlight">Here</span>
+         </div>
+         <div class="mission-box">
+-            Have <span class="small">questions</span> or book requests? <a href="contact.html" class="highlight">Contact us</a>
++            Have <span class="small">questions</span> or book requests? <a href="/contact" class="highlight">Contact us</a>
+         </div>
+         <div class="mission-box">
+             <span class="small">Ready to start swapping books?</span> <a href="/register" class="highlight">Register</a> or <a href="/login" class="highlight">Log in</a>
+Index: .idea/uiDesigner.xml
+===================================================================
+diff --git a/.idea/uiDesigner.xml b/.idea/uiDesigner.xml
+deleted file mode 100644
+--- a/.idea/uiDesigner.xml	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
++++ /dev/null	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
+@@ -1,124 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Palette2">
+-    <group name="Swing">
+-      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
+-      </item>
+-      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
+-      </item>
+-      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.svg" removable="false" auto-create-binding="false" can-attach-label="true">
+-        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
+-        <initial-values>
+-          <property name="text" value="Button" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="RadioButton" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="CheckBox" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="Label" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+-          <preferred-size width="200" height="200" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+-          <preferred-size width="200" height="200" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
+-      </item>
+-      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
+-          <preferred-size width="-1" height="20" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
+-      </item>
+-      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
+-      </item>
+-    </group>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/Template_Spring.iml
+===================================================================
+diff --git a/.idea/Template_Spring.iml b/.idea/Template_Spring.iml
+deleted file mode 100644
+--- a/.idea/Template_Spring.iml	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
++++ /dev/null	(revision 545f89d20eb347b35fd61519a5b9c2efdd79d27b)
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1744146942748)
++++ b/.idea/modules.xml	(date 1744146942748)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/PRACTICA.DISTRI.BUENO2.iml" filepath="$PROJECT_DIR$/.idea/PRACTICA.DISTRI.BUENO2.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/PRACTICA.DISTRI.BUENO2.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/PRACTICA.DISTRI.BUENO2.iml b/.idea/PRACTICA.DISTRI.BUENO2.iml
+new file mode 100644
+--- /dev/null	(date 1744146942736)
++++ b/.idea/PRACTICA.DISTRI.BUENO2.iml	(date 1744146942736)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: Template_Spring/src/main/resources/templates/romance.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Template_Spring/src/main/resources/templates/romance.html b/Template_Spring/src/main/resources/templates/romance.html
+new file mode 100644
+--- /dev/null	(date 1744148411749)
++++ b/Template_Spring/src/main/resources/templates/romance.html	(date 1744148411749)
+@@ -0,0 +1,74 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>Romance Books</title>
++    <link rel="stylesheet" href="/css/styles.css">
++    <link rel="stylesheet" href="https://use.typekit.net/fvp4ryh.css">
++</head>
++<body>
++
++<header>
++    <h1>
++        <span class="title-main">THE BOOK BARTER</span>
++        <br>
++        <span class="title-sub">CONCEPT <span class="title-sub-italic">of Deal</span></span>
++        <br>
++        <span class="title-sub">MADRID</span>
++    </h1>
++</header>
++
++
++<div class="search-container">
++    <input type="text" class="search-bar" placeholder="Search for books">
++</div>
++
++
++<div class="categories">
++    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='books.html'">
++    <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
++    <img src="/assets/fantasy.png" alt="Fantasy" class="category-box">
++    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='books.html'">
++    <img src="/assets/psycho.png" alt="Psychology" class="category-box">
++    <img src="/assets/history.png" alt="History" class="category-box">
++    <img src="/assets/education.png" alt="Education" class="category-box">
++</div>
++
++
++<div class="romance-books-container">
++    <img src="/assets/romanceBook.png" alt="Romance Books" class="romance-books-image">
++    <div class="text-container">
++        <p>EMMA BY JANE AUSTEN <br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            A witty and independent young woman,<br> Emma Woodhouse, delights in matchmaking <br> but refuses to fall in love herself. <br> However, her meddling often leads to mis<br>understandings, and she ultimately <br> learns that love is more complicated and <br> closer to home than she realized. A classic <br> comedy of manners and romance.</p>
++        <p>FUNNY STORY BY EMILY HENRY<br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            Emily Henry’s latest novel likely follows her <br> signature blend of romance, wit, and emotional <br> depth. Centered around a protagonist <br> dealing with heartbreak, an unlikely romance <br> develops—perhaps in an unexpected or ironic <br> way—leading to a journey of love and self-discovery.</p>
++        <p>INTERMEZZO BY SALLY ROONEY <br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            Since Sally Rooney has not yet released <br> Intermezzo, its plot remains unknown. <br> However, given her previous works, it is <br> likely to explore themes of love, class, <br> and existential uncertainty through the <br> lens of deeply introspective characters <br>navigating modern relationships.</p>
++        <p>ALL ABOUT LOVE BY BELL HOOKS <br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            In this powerful nonfiction work, bell hooks <br> examines the nature of love—romantic, familial, <br> and self-love—through a feminist and philosophical <br> lens. She challenges traditional notions <br> of love, arguing that society’s misunderstandings<br> hinder true connection. A deeply <br>insightful and transformative read.
++        </p>
++        <p>BIG SWISS BY JEN BEAGIN<br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            Greta, a transcriptionist for a sex therapist, <br> becomes infatuated with a client she <br> has never met—Big Swiss. When the <br> two women meet by chance in real life, Greta is <br> drawn into a complicated relationship <br> built on deception. A darkly comedic<br>  and thought-provoking novel about desire, <br>trauma, and identity.</p>
++        <p>A NOVEL LOVE STORY BY ASHLEY POSTON<br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            After a painful breakup, the protagonist finds <br>solace in their favorite book—only to be magically<br> transported into its world. There, they <br>encounter the charming yet fictional love interest<br> and face the challenge of trying to stay in<br> the book's pages or return to reality. This<br> romantic, whimsical tale explores self-discovery,<br> healing, and the power of stories.</p>
++        <p>KEEPING 13 BY CHLOE WALSH<br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            After everything they’ve been through,<br>Shannon and Johnny are still fighting <br>their battles—together. But as the weight<br> of their past threatens to pull them apart, <br>they must find the strength to hold on.<br> Shannon is trying to heal from the trauma <br> that haunts her, while Johnny, the rising <br>rugby star, struggles with the pressure<br> of fame and expectations. Their love has <br>survived so much, but will it be strong <br>enough to withstand the biggest test yet?</p>
++        <p><p>WHAT IF IT'S US BY BECKY ALBERTALLI & ADAM SILVERA<br>
++        <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++        Arthur and Ben meet in New York City in a <br> moment of serendipity, but fate seems to <br> keep pulling them apart. As they try to <br> navigate the unpredictability of love and life, they <br> wonder: are they meant to be, or are some <br> love stories just not written in the stars? <br> A heartfelt LGBTQ+ romance about first love,<br> timing, and second chances.</p>
++        <p>KEEPING 13 BY CHLOE WALSH<br>
++            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
++            After everything they’ve been through, <br>Shannon and Johnny are still fighting their<br> battles—together. But as the weight of their<br> past threatens to pull them apart, they must find<br>the strength to hold on. Shannon is trying to heal <br>from the trauma that haunts her, while Johnny,<br> the rising rugby star, struggles with the pressure<br> of fame and expectations. Their love has survived so much,<br> but will it be strong enough to withstand the <br>biggest test yet?</p>
++    </div>
++</div>
++
++</body>
++</html>
