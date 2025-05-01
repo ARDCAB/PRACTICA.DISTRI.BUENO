@@ -88,9 +88,10 @@ public class Book {
         this.genre = genre;
     }
 
-    public Book(String titulo, String autor) {
+    public Book(String titulo, String autor, String genre) {
         this.titulo = titulo;
         this.autor = autor;
+        this.genre = genre;
     }
 
     public int getId() {

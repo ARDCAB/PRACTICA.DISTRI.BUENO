@@ -48,6 +48,8 @@ public class UserService {
         return null;
     }
 
+
+
     // Actualizar parcialmente un usuario (por ejemplo, nombre y email)
     public User patch(int id, Map<String, Object> updates) {
         User user = users.get(id);

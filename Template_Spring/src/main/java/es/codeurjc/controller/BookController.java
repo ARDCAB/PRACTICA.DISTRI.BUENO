@@ -7,6 +7,7 @@ import es.codeurjc.model.Book;
 import es.codeurjc.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Map;
@@ -78,11 +79,13 @@ public class BookController {
 
     // Create a new book from the form
     @PostMapping("/add")
-    public String addBook(@RequestParam String title, @RequestParam String author) {
-        Book newBook = new Book(title, author);  // Create a new book
+    public String addBook(@RequestParam String title, @RequestParam String author, @RequestParam String genre) {
+        Book newBook = new Book(title, author, genre);  // Create a new book
         bookService.addBook(newBook);  // Add the book to the service
         return "redirect:/books/list";  // Redirect to the list of books
     }
+
+
 
 
     // Load the page to add a new book
