@@ -26,22 +26,16 @@
         
         <hr class="separator">
 
-<!-- Add Pickup Point Form -->
-<section class="extra-content">
-    <h2 class="form-title">Add New Pickup Point</h2>
-    <form action="/puntos/add" method="POST">
-        <label>Address:</label><br>
-        <input type="text" id="address" name="direccion" required><br><br>
+        <!-- Buscar Punto por Código Postal -->
+        <section class="extra-content">
+            <h2 class="form-title">Buscar Punto por Código Postal</h2>
+            <form action="/puntos/buscar" method="get">
+                <label for="codigoPostal">Código Postal:</label><br>
+                <input type="text" id="codigoPostal" name="codigoPostal" required><br><br>
 
-        <label>City:</label><br>
-        <input type="text" id="city" name="ciudad" required><br><br>
-
-        <label>User ID:</label><br>
-        <input type="text" id="user_id" name="userId" required><br><br>
-
-        <button type="submit">Add Pickup Point</button>
-    </form>
-  </section>
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
   
   </body>
   </html>

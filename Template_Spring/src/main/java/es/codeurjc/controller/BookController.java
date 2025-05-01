@@ -98,5 +98,21 @@ public class BookController {
         return "redirect:/books/list"; // Redirect back to the list of books
     }
 
+
+
+
+    @GetMapping("/romance")
+    public String romancePage() {
+        return "romance"; // busca romance.html
+    }
+
+    @GetMapping("/allBooks")
+    public String allBooksPage() {
+        return "allBooks"; // busca allBooks.html
+    }
+
+
+
+
 }
 

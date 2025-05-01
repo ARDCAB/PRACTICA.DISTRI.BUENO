@@ -1,146 +1,74 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Romance Books</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://use.typekit.net/fvp4ryh.css">
-    <style>
-        /* Estilos para el formulario */
-        .form-container {
-            margin: 30px auto;
-            width: 50%;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-container h3 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .form-container label {
-            font-size: 18px;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .form-container input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-container button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .form-container button:hover {
-            background-color: #45a049;
-        }
-
-        /* Estilo para los libros */
-        .book-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
-        }
-
-        .book-card {
-            padding: 15px;
-            background-color: #f1f1f1;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .book-card h4 {
-            margin-top: 10px;
-            font-size: 18px;
-        }
-
-        .book-card p {
-            margin: 5px 0;
-            color: #777;
-        }
-    </style>
 </head>
-<body data-genre="fantasy">
+<body>
+
 <header>
-    <a href="index.html" style="text-decoration: none;">
-        <h1>
-            <span class="title-main">THE BOOK BARTER</span>
-            <br>
-            <span class="title-sub">CONCEPT <span class="title-sub-italic">of Deal</span></span>
-            <br>
-            <span class="title-sub">MADRID</span>
-        </h1>
-    </a>
+    <h1>
+        <span class="title-main">THE BOOK BARTER</span>
+        <br>
+        <span class="title-sub">CONCEPT <span class="title-sub-italic">of Deal</span></span>
+        <br>
+        <span class="title-sub">MADRID</span>
+    </h1>
 </header>
 
-<div class="genre-header">Romance Genre</div>
 
 <div class="search-container">
-    <input type="text" class="search-bar" id="searchInput" placeholder="Search for books" onkeyup="filterBooks()">
+    <input type="text" class="search-bar" placeholder="Search for books">
 </div>
+
 
 <div class="categories">
-    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='/books'">
-    <img src="/assets/contemporary.png" alt="Contemporary" class="category-box" onclick="window.location.href='/contemporary'">
-    <img src="/assets/fantasy.png" alt="Fantasy" class="category-box" onclick="window.location.href='/fantasy'">
-    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='/romance'">
-    <img src="/assets/psycho.png" alt="Psychology" class="category-box" onclick="window.location.href='/psychology'">
-    <img src="/assets/history.png" alt="History" class="category-box" onclick="window.location.href='/history'">
-    <img src="/assets/education.png" alt="Education" class="category-box" onclick="window.location.href='/education'">
+    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='books.html'">
+    <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
+    <img src="/assets/fantasy.png" alt="Fantasy" class="category-box">
+    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='books.html'">
+    <img src="/assets/psycho.png" alt="Psychology" class="category-box">
+    <img src="/assets/history.png" alt="History" class="category-box">
+    <img src="/assets/education.png" alt="Education" class="category-box">
 </div>
 
-<div class="popular-section">
-    <h2>Popular in Romance</h2>
-    <div class="book-list" id="booksList">
-        {{#books}}
-        <div class="book-card">
-            <h4>{{titulo}}</h4>
-            <p>{{autor}}</p>
-            <form action="/books/delete/{{id}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
-                <button type="submit">Delete</button>
-            </form>
-        </div>
-        {{/books}}
+
+<div class="romance-books-container">
+    <img src="/assets/romanceBook.png" alt="Romance Books" class="romance-books-image">
+    <div class="text-container">
+        <p>EMMA BY JANE AUSTEN <br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            A witty and independent young woman,<br> Emma Woodhouse, delights in matchmaking <br> but refuses to fall in love herself. <br> However, her meddling often leads to mis<br>understandings, and she ultimately <br> learns that love is more complicated and <br> closer to home than she realized. A classic <br> comedy of manners and romance.</p>
+        <p>FUNNY STORY BY EMILY HENRY<br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            Emily Henry’s latest novel likely follows her <br> signature blend of romance, wit, and emotional <br> depth. Centered around a protagonist <br> dealing with heartbreak, an unlikely romance <br> develops—perhaps in an unexpected or ironic <br> way—leading to a journey of love and self-discovery.</p>
+        <p>INTERMEZZO BY SALLY ROONEY <br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            Since Sally Rooney has not yet released <br> Intermezzo, its plot remains unknown. <br> However, given her previous works, it is <br> likely to explore themes of love, class, <br> and existential uncertainty through the <br> lens of deeply introspective characters <br>navigating modern relationships.</p>
+        <p>ALL ABOUT LOVE BY BELL HOOKS <br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            In this powerful nonfiction work, bell hooks <br> examines the nature of love—romantic, familial, <br> and self-love—through a feminist and philosophical <br> lens. She challenges traditional notions <br> of love, arguing that society’s misunderstandings<br> hinder true connection. A deeply <br>insightful and transformative read.
+        </p>
+        <p>BIG SWISS BY JEN BEAGIN<br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            Greta, a transcriptionist for a sex therapist, <br> becomes infatuated with a client she <br> has never met—Big Swiss. When the <br> two women meet by chance in real life, Greta is <br> drawn into a complicated relationship <br> built on deception. A darkly comedic<br>  and thought-provoking novel about desire, <br>trauma, and identity.</p>
+        <p>A NOVEL LOVE STORY BY ASHLEY POSTON<br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            After a painful breakup, the protagonist finds <br>solace in their favorite book—only to be magically<br> transported into its world. There, they <br>encounter the charming yet fictional love interest<br> and face the challenge of trying to stay in<br> the book's pages or return to reality. This<br> romantic, whimsical tale explores self-discovery,<br> healing, and the power of stories.</p>
+        <p>KEEPING 13 BY CHLOE WALSH<br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            After everything they’ve been through,<br>Shannon and Johnny are still fighting <br>their battles—together. But as the weight<br> of their past threatens to pull them apart, <br>they must find the strength to hold on.<br> Shannon is trying to heal from the trauma <br> that haunts her, while Johnny, the rising <br>rugby star, struggles with the pressure<br> of fame and expectations. Their love has <br>survived so much, but will it be strong <br>enough to withstand the biggest test yet?</p>
+        <p><p>WHAT IF IT'S US BY BECKY ALBERTALLI & ADAM SILVERA<br>
+        <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+        Arthur and Ben meet in New York City in a <br> moment of serendipity, but fate seems to <br> keep pulling them apart. As they try to <br> navigate the unpredictability of love and life, they <br> wonder: are they meant to be, or are some <br> love stories just not written in the stars? <br> A heartfelt LGBTQ+ romance about first love,<br> timing, and second chances.</p>
+        <p>KEEPING 13 BY CHLOE WALSH<br>
+            <button class="reserve-button" onclick="window.location.href='/pickup'">Reserve book</button> <br>
+            After everything they’ve been through, <br>Shannon and Johnny are still fighting their<br> battles—together. But as the weight of their<br> past threatens to pull them apart, they must find<br>the strength to hold on. Shannon is trying to heal <br>from the trauma that haunts her, while Johnny,<br> the rising rugby star, struggles with the pressure<br> of fame and expectations. Their love has survived so much,<br> but will it be strong enough to withstand the <br>biggest test yet?</p>
     </div>
 </div>
 
-<div id="all-books-container" style="display: none; text-align: center;">
-    <img src="/assets/allBooks.png" alt="All Books" class="all-books-image">
-</div>
-
-<script src="/js/books.js"></script>
-<script>
-    function filterBooks() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const bookCards = document.querySelectorAll('.book-card');
-        bookCards.forEach(card => {
-            const title = card.querySelector('h4').textContent.toLowerCase();
-            const author = card.querySelector('p').textContent.toLowerCase();
-            if (title.includes(query) || author.includes(query)) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-</script>
 </body>
 </html>

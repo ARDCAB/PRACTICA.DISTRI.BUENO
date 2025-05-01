@@ -96,15 +96,14 @@
 </div>
 
 <div class="categories">
-    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='/books'">
-    <img src="/assets/contemporary.png" alt="Contemporary" class="category-box" onclick="window.location.href='/contemporary'">
-    <img src="/assets/fantasy.png" alt="Fantasy" class="category-box" onclick="window.location.href='/fantasy'">
-    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='/romance'">
-    <img src="/assets/psycho.png" alt="Psychology" class="category-box" onclick="window.location.href='/psychology'">
-    <img src="/assets/history.png" alt="History" class="category-box" onclick="window.location.href='/history'">
-    <img src="/assets/education.png" alt="Education" class="category-box" onclick="window.location.href='/education'">
+    <img src="/assets/all.png" alt="All" class="category-box" onclick="window.location.href='allBooks.html'">
+    <img src="/assets/contemporary.png" alt="Contemporary" class="category-box">
+    <img src="/assets/fantasy.png" alt="Fantasy" class="category-box">
+    <img src="/assets/romance.png" alt="Romance" class="category-box" onclick="window.location.href='romance.html'">
+    <img src="/assets/psycho.png" alt="Psychology" class="category-box">
+    <img src="/assets/history.png" alt="History" class="category-box">
+    <img src="/assets/education.png" alt="Education" class="category-box">
 </div>
-
 
 <div class="popular-section">
     <h2>Popular</h2>
@@ -158,16 +157,6 @@
 
         <label for="author">Author:</label>
         <input type="text" id="author" name="author" required><br><br>
-        <label for="genre">Genre:</label>
-        <select id="genre" name="genre" required>
-            <option value="">-- Select Genre --</option>
-            <option value="CONTEMPORARY">Contemporary</option>
-            <option value="FANTASY">Fantasy</option>
-            <option value="ROMANCE">Romance</option>
-            <option value="PSYCHOLOGY">Psychology</option>
-            <option value="HISTORY">History</option>
-            <option value="EDUCATION">Education</option>
-        </select><br><br>
 
         <button type="submit">Add Book</button>
     </form>
