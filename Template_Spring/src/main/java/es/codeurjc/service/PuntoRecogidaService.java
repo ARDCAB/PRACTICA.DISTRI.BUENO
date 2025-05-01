@@ -6,26 +6,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class PuntoRecogidaService {
 
     @Autowired
-    private PuntoRecogidaRepository repository;
+    private PuntoRecogidaRepository puntoRepo;
 
-    // Obtener todos los puntos disponibles
     public List<PuntoRecogida> getAll() {
-        return repository.findAll();
+        return puntoRepo.findAll();
     }
 
-    // Obtener punto por ID
+    public PuntoRecogida create(PuntoRecogida punto) {
+        return puntoRepo.save(punto);
+    }
+
+    public void addPunto(PuntoRecogida punto) {
+        puntoRepo.save(punto);
+    }
+
+    public List<PuntoRecogida> getByPostalCode(String codigoPostal) {
+        return puntoRepo.findByCodigoPostal_Codigo(codigoPostal);
+    }
+
     public PuntoRecogida getById(int id) {
-        return repository.findById(id).orElse(null);
+        return puntoRepo.findById(id).orElse(null);
     }
 
-    // Buscar puntos por código postal
-    public List<PuntoRecogida> getByCodigoPostal(String codigoPostal) {
-        return repository.findByCodigoPostal(codigoPostal);
+    public void update(int id, PuntoRecogida updated) {
+        updated.setId(id);
+        puntoRepo.save(updated);
+    }
+
+    public PuntoRecogida patch(int id, Map<String, Object> updates) {
+        Optional<PuntoRecogida> optional = puntoRepo.findById(id);
+        if (optional.isEmpty()) return null;
+
+        PuntoRecogida punto = optional.get();
+
+        if (updates.containsKey("userId")) {
+            punto.setUserId((int) updates.get("userId"));
+        }
+
+        // Agrega aquí más campos si necesitas actualizarlos
+
+        return puntoRepo.save(punto);
+    }
+
+    public void delete(int id) {
+        puntoRepo.deleteById(id);
     }
 }
 

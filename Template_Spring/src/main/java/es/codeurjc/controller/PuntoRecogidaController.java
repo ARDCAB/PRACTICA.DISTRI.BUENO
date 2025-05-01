@@ -42,7 +42,14 @@ public class PuntoRecogidaController {
     // Crear punto de recogida desde formulario
     @PostMapping("/add")
     public String addPunto(@RequestParam String codigoPostal, @RequestParam int userId) {
-        PuntoRecogida punto = new PuntoRecogida(codigoPostal, userId);
+        CodigoPostalMadrid codigo = codigoPostalRepo.findById(codigoPostal).orElse(null);
+
+        if (codigo == null) {
+            // Si no existe el código postal, redirige al formulario con error
+            return "redirect:/puntos/form?error=cp_no_existente";
+        }
+
+        PuntoRecogida punto = new PuntoRecogida(codigo, userId);
         puntoService.addPunto(punto);
         return "redirect:/puntos/api";
     }
@@ -110,5 +117,3 @@ public class PuntoRecogidaController {
         return "redirect:/puntos/api";
     }
 }
-
-

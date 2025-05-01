@@ -1,11 +1,8 @@
 package es.codeurjc.repository;
 
-import es.codeurjc.model.PuntoRecogida;
+import es.codeurjc.model.CodigoPostalMadrid;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface PuntoRecogidaRepository extends JpaRepository<PuntoRecogida, Integer> {
-    List<PuntoRecogida> findByCodigoPostal(String codigoPostal);
+public interface CodigoPostalMadridRepository extends JpaRepository<CodigoPostalMadrid, String> {
+    // Puedes agregar métodos personalizados si los necesitas
 }
-
